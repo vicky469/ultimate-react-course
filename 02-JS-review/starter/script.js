@@ -142,3 +142,129 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+
+/*
+/// 1. Destructuring
+const book = getBook(1);
+// const title = book.title;
+// const author = book.author;
+const { title, author, genres, publicationDate } = getBook(2);
+title;
+author;
+genres;
+
+// const primaryGenre = genres[0];
+// const secondaryGenre = genres[1];
+
+// const [primaryGenre, secondaryGenre] = genres;
+// console.log(primaryGenre, secondaryGenre);
+
+/// 2. Spread operator
+const [primaryGenre, secondaryGenre, ...restOfGenres] = genres;
+console.log(primaryGenre, secondaryGenre, restOfGenres);
+
+/// 3. Rest operator
+// Add a new genres to Genres
+const updatedGenres = [...genres, "epic fantasy"];
+updatedGenres;
+
+const updatedBook = {
+  ...book, // NEED TO BE FIRST. `...` takes all the properties of the book into a new object
+  moviePublicationDate: "2001-12-19", // Add a new property
+  pages: 1210, // Update an existing property
+};
+updatedBook;
+
+/// 4. Template literals
+const summary = `${title} by ${author} in ${publicationDate.split("-")[0]}`;
+summary;
+
+*/
+
+/*
+/// map returns a new array
+const books = getBooks();
+const x = [1, 2, 3, 4, 5].map((n) => n * 2);
+x;
+
+const titles = books.map((book) => book.title);
+titles;
+
+const bookSummaries = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+  reviewsCount: getTotalReviewsCount(book),
+}));
+bookSummaries;
+
+function getTotalReviewsCount(book) {
+  const goodreads = book.reviews.goodreads?.reviewsCount ?? 0;
+  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+  return goodreads + librarything;
+}
+
+/// filter returns a new array
+const fantasyBooks = books
+  .filter((book) => book.genres.includes("fantasy"))
+  .map((book) => book.title);
+fantasyBooks;
+
+/// reduce returns a single value
+// get the total number of pages of all books combined, setting initial value to 0
+const totalPages = books.reduce((acc, book) => acc + book.pages, 0);
+// accumulator, the current value of the final result.
+totalPages;
+
+/// sort in-place
+const arr = [3, 1, 5, 2, 4];
+const sortedInPlace = arr.sort((a, b) => a - b);
+sortedInPlace;
+arr;
+
+/// sort return a new array
+const sortedArr = arr.slice().sort((a, b) => b - a);
+sortedArr;
+arr;
+
+const sortedByPages = books.slice().sort((a, b) => a.pages - b.pages);
+sortedByPages;
+
+/// mutate the array without effecting the original one
+// 1) Add a new book
+const newBook = {
+  id: 6,
+  title: "The Hobbit",
+  author: "J. R. R. Tolkien",
+  publicationDate: "1937-09-21",
+};
+
+const booksAfterAdd = [...books, newBook]; // spread the original array and add the new book
+booksAfterAdd;
+books;
+
+// 2) Remove a book
+const booksAfterDelete = books.filter((book) => book.id !== 2); //filter makes the result array shorter
+booksAfterDelete;
+
+// 3) Update a book
+const booksAfterUpdate = books.map(
+  (book) => (book.id === 3 ? { ...book, pages: 700 } : book) // for other books we return the same book, for the book with id 3 we return a new book with updated pages
+);
+booksAfterUpdate;
+
+*/
+
+// old way
+fetch("https://jsonplaceholder.typicode.com/todos")
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+
+console.log("Hello World");
+
+// new way
+async function fetchData() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const data = await res.json();
+  console.log(data);
+  return data;
+}
