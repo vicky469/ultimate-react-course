@@ -67,37 +67,65 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData || [];
+  const totalPizzas = pizzas.length;
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      <Pizza />
+
+      {totalPizzas > 0 ? (
+        <>
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from. All
+            from our stone oven, all organic, all delicious.
+          </p>
+          <ul className="pizzas">
+            {pizzaData.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </>
+      ) : null}
     </main>
   );
 }
 
-function Pizza(props) {
+function Pizza({ pizzaObj }) {
+  // Destructuring the props ^^
   return (
-    <div className="pizza">
-      <img src={props.photoName} alt={props.name} />
-      <h2>{props.name}</h2>
-      <p>{props.ingredients}</p>
-      <p>{props.price}</p>
-      <p>{props.soldOut ? "Sold Out" : "Available"}</p>
-    </div>
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : null}`}>
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
+      <PizzaInfo {...pizzaObj} />
+    </li>
   );
 }
 
+function PizzaInfo({ name, ingredients, price, soldOut }) {
+  return (
+    <div className="pizza-info">
+      <h3>{name}</h3>
+      <p>{ingredients}</p>
+      <p>{price}</p>
+      <p>{soldOut ? "Sold Out" : "Available"}</p>
+    </div>
+  );
+}
 function Footer() {
   const hour = new Date().getHours();
   const openHour = 11;
   const closeHour = 21;
   const isOpen = hour >= openHour && hour < closeHour;
-  if (!isOpen) {
-    alert("Sorry, we are closed");
-  }
+
   return (
     <footer className="footer">
-      @{new Date().getFullYear()} Fast React Pizza Co.
+      <div className="order">
+        <p>
+          {isOpen
+            ? ""
+            : `We are closed. Please order from ${openHour}: 00  am to ${closeHour}: 00 pm.`}
+        </p>
+        {Order(isOpen)}
+      </div>
     </footer>
   );
 }
@@ -108,3 +136,10 @@ root.render(
     <App />
   </React.StrictMode>
 );
+function Order(isOpen) {
+  return (
+    <button className="btn" disabled={!isOpen}>
+      Order Now
+    </button>
+  );
+}
