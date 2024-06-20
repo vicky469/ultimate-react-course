@@ -1,0 +1,14 @@
+{
+  "files.exclude": {
+    "**/.idea": false,
+    "**/bin": false,
+    "**/resources": false,
+    "**/obj": false,
+    "**/Folder.DotSettings.user": false,
+    "**/DotNetToolbox.sln.DotSettings.user": false,
+    "**/*.sln": false,
+    "**/algorithm.csproj.DotSettings": false,
+    "**/*.csproj": false,
+    "04-steps": false
+  }
+}
