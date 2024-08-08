@@ -8,7 +8,6 @@
     "**/DotNetToolbox.sln.DotSettings.user": false,
     "**/*.sln": false,
     "**/algorithm.csproj.DotSettings": false,
-    "**/*.csproj": false,
-    "04-steps": false
+    "**/*.csproj": false
   }
 }
